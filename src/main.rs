@@ -61,13 +61,10 @@ fn main() {
        }
    }
    let cents = coin_to_cents(coin, count);
-   if cents == 1 && count == 1 {
-       println!("{} {} is {} cent!", count, coin_str, cents);
-   } else if cents == 1 {
-       println!("{} {}s are {} cent", count, coin_str, cents);
-   } else if count == 1 {
-       println!("{} {} is {} cents!", count, coin_str, cents);
-   } else {
-       println!("{} {}s are {} cents", count, coin_str, cents);
+   match count {
+       _ if cents == 1 && count == 1 => println!("{} {} is {} cent!", count, coin_str, cents),
+       _ if cents == 1 => println!("{} {}s are {} cent", count, coin_str, cents),
+       1 => println!("{} {} is {} cents!", count, coin_str, cents),
+       _ => println!("{} {}s are {} cents", count, coin_str, cents),
    }
 }
