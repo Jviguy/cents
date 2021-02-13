@@ -31,7 +31,18 @@ fn main() {
    let mut count: u32 = 1;
    let coin: Coin;
    let coin_str: &String;
-   if args[1] == String::from("-c") || args[1] == String::from("--count") {
+   if args.len() <= 1 {
+       println!("Please provide a coin or use `coins -h` or `coins --help` for help!");
+       return
+   }
+   if args[1] == "-h" || args[1] == "--help" {
+       println!("cents is a open source american coin to cents program made in rust!");
+       println!("Its used like `cents penny` and will then echo back the amount of cents a penny is.");
+       println!("There are also other arguments that can be made like. -h (help) and -c (count)");
+       println!("Example: `cents -c 20 penny` will return 20 pennys are 20 cents.");
+       return 
+   }
+   if args[1] == "-c" || args[1] == "--count" {
        let result = &args[2].parse::<u32>();
        match result {
            Ok(result) => count = *result,
