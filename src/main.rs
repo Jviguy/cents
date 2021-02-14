@@ -59,7 +59,7 @@ fn main() {
            println!("{}", n);
            return;
        }
-   }
+   };
    let cents = coin_to_cents(coin, count);
    match count { 
        1 if cents == 1 => println!("{} {} is {} cent!", count, coin_str, cents),
