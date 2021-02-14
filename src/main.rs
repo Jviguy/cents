@@ -40,7 +40,7 @@ fn main() {
        println!("Example: `cents -c 20 penny` will return 20 pennys are 20 cents.");
        return 
    }
-   let coin_str: &str = if args[1] == "-c" || args[1] == "--count" {
+   let coin_str = if args[1] == "-c" || args[1] == "--count" {
        let result = args[2].parse::<u32>();
        match result {
            Ok(result) => count = result,
@@ -53,7 +53,7 @@ fn main() {
    } else {
        args[1].as_str()
    };
-   let coin: Coin = match str_to_coin(coin_str) {
+   let coin = match str_to_coin(coin_str) {
        Ok(n) => n,
        Err(n) => {
            println!("{}", n);
