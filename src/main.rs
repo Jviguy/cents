@@ -22,7 +22,7 @@ fn str_to_coin(coin: &str) -> Result<Coin, String> {
         "nickel" => Ok(Coin::Nickel),
         "dime" => Ok(Coin::Dime),
         "quarter" => Ok(Coin::Quarter),
-        _ => Err(format!("Unkown Coin: {}", coin))
+        _ => Err(format!("Unknown Coin: {}", coin))
     }
 }
 
