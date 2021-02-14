@@ -16,13 +16,13 @@ fn coin_to_cents(coin: Coin, count: u32) -> u32 {
     }
 }
 
-fn str_to_coin(coin: &String) -> Result<Coin, String> {
-    match *coin {
+fn str_to_coin(coin: &str) -> Result<Coin, String> {
+    match coin {
         _ if coin == "penny" => Ok(Coin::Penny),
         _ if coin == "nickel" => Ok(Coin::Nickel),
         _ if coin == "dime" => Ok(Coin::Dime),
         _ if coin == "quarter" => Ok(Coin::Quarter),
-        _ => Err(format!("Unkown Coin: {}", *coin))
+        _ => Err(format!("Unkown Coin: {}", coin))
     }
 }
 
@@ -30,7 +30,7 @@ fn main() {
    let args: Vec<String> = env::args().collect();
    let mut count: u32 = 1;
    let coin: Coin;
-   let coin_str: &String;
+   let coin_str: &str;
    if args.len() <= 1 {
        println!("Please provide a coin or use `coins -h` or `coins --help` for help!");
        return
@@ -43,15 +43,15 @@ fn main() {
        return 
    }
    if args[1] == "-c" || args[1] == "--count" {
-       let result = &args[2].parse::<u32>();
+       let result = args[2].parse::<u32>();
        match result {
-           Ok(result) => count = *result,
+           Ok(result) => count = result,
            Err(_) => {
                println!("Please provide A valid count for coins, 1 - 100");
                return
            }
        }
-       coin_str = &args[3];
+       coin_str = args[3].as_str();
        let result = str_to_coin(coin_str);
        match result {
            Ok(result) => coin = result,
@@ -61,7 +61,7 @@ fn main() {
            }
        }
    } else {
-       coin_str = &args[1];
+       coin_str = args[1].as_str();
        let result = str_to_coin(coin_str);
        match result {
            Ok(result) => coin = result,
@@ -72,7 +72,7 @@ fn main() {
        }
    }
    let cents = coin_to_cents(coin, count);
-   match count {
+   match count { 
        1 if count == 1 => println!("{} {} is {} cent!", count, coin_str, cents),
        1 => println!("{} {} is {} cents!", count, coin_str, cents),
        _ => println!("{} {}s are {} cents", count, coin_str, cents),
