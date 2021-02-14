@@ -29,8 +29,6 @@ fn str_to_coin(coin: &str) -> Result<Coin, String> {
 fn main() {
    let args: Vec<String> = env::args().collect();
    let mut count: u32 = 1;
-   let coin: Coin;
-   let coin_str: &str;
    if args.len() <= 1 {
        println!("Please provide a coin or use `coins -h` or `coins --help` for help!");
        return
@@ -42,7 +40,7 @@ fn main() {
        println!("Example: `cents -c 20 penny` will return 20 pennys are 20 cents.");
        return 
    }
-   if args[1] == "-c" || args[1] == "--count" {
+   let coin_str: &str = if args[1] == "-c" || args[1] == "--count" {
        let result = args[2].parse::<u32>();
        match result {
            Ok(result) => count = result,
@@ -51,29 +49,20 @@ fn main() {
                return
            }
        }
-       coin_str = args[3].as_str();
-       let result = str_to_coin(coin_str);
-       match result {
-           Ok(result) => coin = result,
-           Err(result) => {
-               println!("{}", result);
-               return
-           }
-       }
+       args[3].as_str()
    } else {
-       coin_str = args[1].as_str();
-       let result = str_to_coin(coin_str);
-       match result {
-           Ok(result) => coin = result,
-           Err(result) => {
-               println!("{}", result);
-               return
-           }
+       args[1].as_str()
+   };
+   let coin: Coin = match str_to_coin(coin_str) {
+       Ok(n) => n,
+       Err(n) => {
+           println!("{}", n);
+           return;
        }
    }
    let cents = coin_to_cents(coin, count);
    match count { 
-       1 if count == 1 => println!("{} {} is {} cent!", count, coin_str, cents),
+       1 if cents == 1 => println!("{} {} is {} cent!", count, coin_str, cents),
        1 => println!("{} {} is {} cents!", count, coin_str, cents),
        _ => println!("{} {}s are {} cents", count, coin_str, cents),
    }
