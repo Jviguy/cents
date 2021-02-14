@@ -9,10 +9,10 @@ enum Coin {
 
 fn coin_to_cents(coin: Coin, count: u32) -> u32 {
     match coin {
-        Coin::Penny => return 1 * count,
-        Coin::Nickel => return 5 * count,
-        Coin::Dime => return 10 * count,
-        Coin::Quarter => return 25 * count,
+        Coin::Penny =>  count,
+        Coin::Nickel => 5 * count,
+        Coin::Dime => 10 * count,
+        Coin::Quarter => 25 * count,
     }
 }
 
