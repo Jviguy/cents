@@ -18,10 +18,10 @@ fn coin_to_cents(coin: Coin, count: u32) -> u32 {
 
 fn str_to_coin(coin: &str) -> Result<Coin, String> {
     match coin {
-        _ if coin == "penny" => Ok(Coin::Penny),
-        _ if coin == "nickel" => Ok(Coin::Nickel),
-        _ if coin == "dime" => Ok(Coin::Dime),
-        _ if coin == "quarter" => Ok(Coin::Quarter),
+        "penny" => Ok(Coin::Penny),
+        "nickel" => Ok(Coin::Nickel),
+        "dime" => Ok(Coin::Dime),
+        "quarter" => Ok(Coin::Quarter),
         _ => Err(format!("Unkown Coin: {}", coin))
     }
 }
