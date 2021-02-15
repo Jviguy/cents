@@ -1,3 +1,4 @@
+use ansi_term::Colour;
 use std::env;
 
 enum Coin {
@@ -22,7 +23,9 @@ fn str_to_coin(coin: &str) -> Result<Coin, String> {
         "nickel" => Ok(Coin::Nickel),
         "dime" => Ok(Coin::Dime),
         "quarter" => Ok(Coin::Quarter),
-        _ => Err(format!("Unknown Coin: {}", coin)),
+        _ => Err(Colour::Red
+            .paint(format!("Unknown Coin: {}", coin))
+            .to_string()),
     }
 }
 
@@ -62,8 +65,23 @@ fn main() {
     };
     let cents = coin_to_cents(coin, count);
     match count {
-        1 if cents == 1 => println!("{} {} is {} cent!", count, coin_str, cents),
-        1 => println!("{} {} is {} cents!", count, coin_str, cents),
-        _ => println!("{} {}s are {} cents", count, coin_str, cents),
+        1 if cents == 1 => println!(
+            "{} {} is {} cent!",
+            Colour::RGB(255, 165, 0).paint(count.to_string()),
+            Colour::Blue.paint(coin_str),
+            Colour::Green.paint(cents.to_string())
+        ),
+        1 => println!(
+            "{} {} is {} cents!",
+            Colour::RGB(255, 165, 0).paint(count.to_string()),
+            Colour::Blue.paint(coin_str),
+            Colour::Green.paint(cents.to_string())
+        ),
+        _ => println!(
+            "{} {} are {} cents",
+            Colour::RGB(255, 165, 0).paint(count.to_string()),
+            Colour::Blue.paint(coin_str.to_owned() + "s"),
+            Colour::Green.paint(cents.to_string())
+        ),
     }
 }
